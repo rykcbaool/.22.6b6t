@@ -104,7 +104,7 @@ function startup() {
       }
       console.log(crystal_kills)
     },
-    ":ping": () => bot.chat("pong!"),
+    //":ping": () => bot.chat("pong!"),
     ":deaths": () => bot.chat(`Bot ${deaths}, Global: ${global_deaths}`),
     ":health": () => bot.chat(`Bot has ${bot.health.toFixed(1)} hearts`),
     ":rape": (user, message) => {
@@ -300,6 +300,13 @@ function startup() {
   bot.on('login', () => {
     console.log('Logged In');
     bot.setControlState("forward", true);
+
+      if (spawnedIn === 2){
+        setInterval(() => {
+        const tip = random_element(spam_messages);
+        bot.chat(tip);
+      }, 300000); // every 5 min
+    }
   });
 
     bot.on('bossBarCreated', async (bossBar) => {
@@ -420,12 +427,6 @@ function startup() {
         }
     }
 
-    setInterval(() => {
-      const tip = random_element(spam_messages);
-      bot.chat(tip);
-    }, 300000); // every 5 min
-
-    
     // Welcome new players
     if (message.includes("joined") && !message.includes(username)) {
       const player = message.split("joined")[0].trim();
