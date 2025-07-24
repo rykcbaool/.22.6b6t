@@ -420,6 +420,12 @@ function startup() {
         }
     }
 
+    setInterval(() => {
+      const tip = random_element(spam_messages);
+      bot.chat(tip);
+    }, 300000); // every 5 min
+
+    
     // Welcome new players
     if (message.includes("joined") && !message.includes(username)) {
       const player = message.split("joined")[0].trim();
