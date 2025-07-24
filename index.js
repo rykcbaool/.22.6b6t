@@ -31,6 +31,7 @@ function startup() {
 
   let scan_hotspot = false;
   let auto_tp = false;
+  let auto_tip = false
 
   // Misc.
   const whitelist = ['Damix2131', 'q33a', 'Abottomlesspit', 'ryk_cbaool'];
@@ -285,6 +286,15 @@ function startup() {
   /** EVENTS **/
   bot.on('spawn', () => {
     spawnedIn += 1;
+
+      if (!tips_started) {
+      tips_started = true;
+  
+      setInterval(() => {
+        const tip = random_element(spam_messages);
+        bot.chat(tip);
+      }, 300000); // every 5 min
+    }
   });
 
   bot.on("playerCollect", async (collector, collected) => {
@@ -300,13 +310,6 @@ function startup() {
   bot.on('login', () => {
     console.log('Logged In');
     bot.setControlState("forward", true);
-
-      if (spawnedIn === 2){
-        setInterval(() => {
-        const tip = random_element(spam_messages);
-        bot.chat(tip);
-      }, 300000); // every 5 min
-    }
   });
 
     bot.on('bossBarCreated', async (bossBar) => {
