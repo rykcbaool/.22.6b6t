@@ -31,7 +31,7 @@ function startup() {
 
   let scan_hotspot = false;
   let auto_tp = false;
-  let auto_tip = false
+  let tips_started = false;
 
   // Misc.
   const whitelist = ['Damix2131', 'q33a', 'Abottomlesspit', 'ryk_cbaool'];
