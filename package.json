@@ -6,6 +6,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "mineflayer": "^4"
+    "mineflayer": "^4",
+    "mineflayer-tps": "^1.0.0"
   }
 }
