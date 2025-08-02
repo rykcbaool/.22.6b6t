@@ -40,7 +40,15 @@ function startup() {
   let auto_tp = false;
   let tips_started = false;
 
+  // Bot Stats
+  let bot_uses = 0
+  let bot_tips_sent = 0
+
   // Misc.
+
+  let temp_blacklist = new Map();
+  let spam_count = {};
+
   let whitelist = ['Damix2131', 'q33a', 'ryk_cbaool'];
     const blacklisted_messages = ['---------------------------', 'players sleeping', 'You can vote! Type /vote to get more homes, lower cooldowns & white username color!',
         'Remember to /vote'
@@ -78,6 +86,7 @@ function startup() {
     `Wondering how smart someone is? Try ${prefix}iq username!`,
     `Find out how gay your friends are with ${prefix}gay username!`,
     `Want to rape your friends? Use ${prefix}rape username!`,
+    `I've been created by Damix2131 himself. Give me a try starting with ${prefix}help!`
     `Check furry levels with ${prefix}furry username!`,
     `See how trans you are with ${prefix}trans username!`,
     `Try the retard meter with ${prefix}retard username!`,
@@ -487,6 +496,9 @@ function startup() {
       } else {
         bot.chat(`Usage: ${prefix}quote <username>`);
       }
+    },
+    [`${prefix}stats`]: () => {
+      bot.chat(`Bot uses: ${bot_uses}, Bot tips sent: ${bot_tips_sent}. Thank you for using my bot :3`)
     }
   }
 
@@ -602,6 +614,56 @@ function startup() {
     return whitelist.includes(user.trim());
   }
 
+  function blacklist(user) {
+    if (temp_blacklist.has(user)) return;
+
+    if (!spam_offenses[user]) spam_offenses[user] = 1;
+    else spam_offenses[user]++;
+
+    if (spam_offenses[user] >= 6) {spam_offenses[user] = 6}
+
+    setTimeout(() => {
+      if (spam_offenses[user] && spam_offenses[user] > 0) {
+        spam_offenses[user]--;
+
+      }
+    }, 300000);
+    const minutes = spam_offenses[user] * 5;
+    const duration = minutes * 60 * 1000;
+
+    temp_blacklist.set(user, true);
+    bot.whisper(user, `Blacklisted for spamming (${minutes} minutes).`);
+
+    setTimeout(() => {
+      temp_blacklist.delete(user);
+      bot.whisper(user, "You're no longer blacklisted.");
+    }, duration);
+  }
+
+  function checkSpam(user) {
+    if (!spam_count[user]) {
+      spam_count[user] = 1
+    } else {
+      spam_count[user] ++
+    }
+
+    setTimeout(() => {
+      if (spam_count[user]) {
+        spam_count--
+      }
+
+      if (spam_count[user] <= 0) {
+        delete spam_count[user]
+      }
+    }, 5000)
+
+    if (spam_count[user] >= 5) {
+      spam_count[user] = 0;
+      blacklist(user);
+      return true;
+    }
+    return false;
+  }
   /** EVENTS **/
   bot.on('spawn', () => {
     spawnedIn += 1;
@@ -612,6 +674,7 @@ function startup() {
       setInterval(() => {
         const tip = random_element(spam_messages);
         bot.chat(tip);
+        bot_tips_sent++
       }, 180000); // every 5 min
     }
   });
@@ -681,7 +744,7 @@ function startup() {
     }
 
     const username = return_user(message);
-    const command = message.split('» ')[1] || message.split("whispers: ")[1] || '';
+    let command = message.split('» ')[1] || message.split("whispers: ")[1] || '';
 
     if (!quotes[username]) {
       quotes[username] = []
@@ -702,7 +765,13 @@ function startup() {
 
     // Handle whitelisted user commands
     if (loggedIn && spawnedIn >= 2) {
+        if (command.startsWith("<Malachite>")) {
+          command = command.replace("<Malachite>", "").replace("</Malachite>", "")
+        }
         if (command.startsWith(prefix)) {
+            if (temp_blacklist.has(username)) return;
+            if (checkSpam(username)) return;
+
             if (whitelisted_users(username)) {
                 for (const cmd in admin_commands) {
                     if (command.startsWith(cmd)) {
@@ -714,6 +783,7 @@ function startup() {
             for (const cmd in public_commands) {
                 if (command.startsWith(cmd)) {
                     public_commands[cmd](username, command)
+                    bot_uses++
                 }
             }
         }
@@ -721,6 +791,8 @@ function startup() {
 
     // Death logger
     if (message.includes("died") && !message.includes('»')) {
+      //const user = message.split(" died")[0]
+
       global_deaths++;
     }
 
