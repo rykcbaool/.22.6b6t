@@ -353,21 +353,21 @@ function startup() {
       }
     },
 
-    /*[`${prefix}kit`]: (user, message) => {
-      let args = message.split(`${prefix}kit `)[1];
+    //[`${prefix}kit`]: (user, message) => {
+    //  let args = message.split(`${prefix}kit `)[1];
 
-      if (args && args.trim().length > 0) {
-        if (kits.includes(args)) {
-          bot.chat(`${user} has received kit ${args}`)
-        } else if (args.toLowerCase() === 'help') {
-          bot.chat(`Avaiable kits: ${kits.join(', ')}`)
-        } else {
-          bot.chat(`Invalid Kit!, Use: ${kits.join(', ')}`)
-        }
-      } else {
-        bot.chat(`Please pick an Kit you want to use with ${prefix}kit help`)
-      }
-    }, */
+    //  if (args && args.trim().length > 0) {
+    //    if (kits.includes(args)) {
+    //      bot.chat(`${user} has received kit ${args}`)
+    //    } else if (args.toLowerCase() === 'help') {
+    //      bot.chat(`Avaiable kits: ${kits.join(', ')}`)
+    //    } else {
+    //      bot.chat(`Invalid Kit!, Use: ${kits.join(', ')}`)
+    //    }
+    //  } else {
+    //    bot.chat(`Please pick an Kit you want to use with ${prefix}kit help`)
+    //  }
+    //},
 
     [`${prefix}lesbian`]: (user, message) => {
       let args = message.split(`${prefix}lesbian `)[1];
@@ -793,5 +793,3 @@ function startup() {
 }
 
 startup();
-
-
