@@ -353,7 +353,7 @@ function startup() {
       }
     },
 
-    [`${prefix}kit`]: (user, message) => {
+    /*[`${prefix}kit`]: (user, message) => {
       let args = message.split(`${prefix}kit `)[1];
 
       if (args && args.trim().length > 0) {
@@ -367,7 +367,7 @@ function startup() {
       } else {
         bot.chat(`Please pick an Kit you want to use with ${prefix}kit help`)
       }
-    },
+    }, */
 
     [`${prefix}lesbian`]: (user, message) => {
       let args = message.split(`${prefix}lesbian `)[1];
@@ -793,4 +793,5 @@ function startup() {
 }
 
 startup();
+
 
