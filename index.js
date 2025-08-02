@@ -133,7 +133,6 @@ function startup() {
     [`${prefix}uptime`]: () => bot.chat(`Uptime: ${get_uptime()}`),
     [`${prefix}deaths`]: () => bot.chat(`Bot ${deaths}, Global: ${global_deaths}`),
     [`${prefix}health`]: () => bot.chat(`Bot has ${bot.health.toFixed(1)} hearts`),
-    [`${prefix}hostinfo`]: () => bot.chat(`MOTD: ${bot.server.brand || ''} | Version: ${bot.version}`),
     [`${prefix}rape`]: (user, message) => {
         let args = message.split(`${prefix}rape `)[1]
 
@@ -794,3 +793,4 @@ function startup() {
 }
 
 startup();
+
