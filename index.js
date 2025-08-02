@@ -7,13 +7,13 @@ const createCommands = require('./commands');
 const registerEvents = require('./events');
 
 function startup() {
-    const PASSWORD = 'Savior';
+    const PASSWORD = process.env.MC_PASSWORD;
     const prefix = '?';
 
     const bot = mineflayer.createBot({
         host: 'eu.6b6t.org',
         port: 25565,
-        username: 'CoolDudeBot',
+        username: '.22',
         version: '1.19.4',
         keepAlive: true,
     });
