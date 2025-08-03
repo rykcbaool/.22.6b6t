@@ -12,6 +12,7 @@ module.exports = function(bot, state) {
         public_commands,
         responses,
         PASSWORD,
+        welcomer
     } = state;
 
     bot.on('spawn', () => {
@@ -62,7 +63,7 @@ module.exports = function(bot, state) {
 
     bot.on("death", () => {
         console.log("Died!");
-        bot.clearControlStates();
+        bot.clearControlStates(); // Planned to make it more human, but meh
         bot.setControlState("forward", true);
         bot.setControlState("jump", true);
 
@@ -115,14 +116,14 @@ module.exports = function(bot, state) {
                 if (whitelisted_users(username)) {
                     for (const cmd in admin_commands) {
                         if (command.startsWith(cmd)) {
-                            admin_commands[cmd](username, command, bot);  // pass bot here
+                            admin_commands[cmd](username, command, bot, state);  // pass bot here
                         }
                     }
                 }
 
                 for (const cmd in public_commands) {
                     if (command.startsWith(cmd)) {
-                        public_commands[cmd](username, command, bot);  // pass bot here
+                        public_commands[cmd](username, command, bot, state);  // pass bot here
                         state.bot_uses++;
                     }
                 }
@@ -160,7 +161,7 @@ module.exports = function(bot, state) {
             }
         }
 
-        if (message.includes("joined") && !message.includes(username)) {
+        if (message.includes("joined") && !message.includes(bot.username) && welcomer ) {
             const player = message.split("joined")[0].trim();
             console.log(`Player ${player} currently joined.`);
             bot.chat(`/whisper ${player} Welcome to 6b6t.org ${player}!`);
@@ -182,7 +183,7 @@ module.exports = function(bot, state) {
 
     bot.on('error', (err) => {
         console.error('[Bot Error]', err);
-        if (err.code === 'ECONNREFUSED' || err.message.includes('Timed out')) {
+        if (err.code === 'ECONNREFUSED' || err.message.includes('timed out')) {
             console.log('Attempting to reconnect...');
             setTimeout(startup, 5000);
         }
