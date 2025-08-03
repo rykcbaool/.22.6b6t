@@ -312,7 +312,7 @@ const public_commands = {
         bot.chat(`[8-ball] ${response}`);
     },
 
-    [`${prefix}roll`]: (user, message, bot, state) => {
+    [`${prefix}dice`]: (user, message, bot, state) => {
         const rolled = Math.floor(Math.random() * 5) + 1;
         bot.chat(`[Dice] Rolled a ${rolled}`);
     },
@@ -396,7 +396,11 @@ const public_commands = {
 
     [`${prefix}stats`]: (user, message, bot, state) => {
         bot.chat(`Bot uses: ${state.bot_uses}, Bot tips sent: ${state.bot_tips_sent}.`)
-    }
+    },
+
+    [`${prefix}ds`]: (user, message, bot, state) => {
+        bot.chat(`Official discord server of .22 - https://discord.gg/mjrDsGCV7F`)
+    }    
 }
 
 const admin_commands = {
