@@ -8,7 +8,7 @@ const registerEvents = require('./events');
 
 function startup() {
     const PASSWORD = process.env.MC_PASSWORD;
-    const prefix = '?';
+    const prefix = '-';
 
     const bot = mineflayer.createBot({
         host: 'eu.6b6t.org',
@@ -91,3 +91,4 @@ function startup() {
 }
 
 startup();
+
