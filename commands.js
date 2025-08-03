@@ -332,7 +332,7 @@ const public_commands = {
     },
 
     [`${prefix}playerlist`]: (user, message, bot, state) => {
-        const players = Object.keys(bot.players);
+        const players = Object.keys(bot.players).length;
         if (players.length === 0) {
             bot.chat("No players online.");
         } else {
