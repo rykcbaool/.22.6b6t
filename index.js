@@ -29,6 +29,7 @@ function startup() {
         deaths: 0,
         hotspot_death: false,
         crystalled: 0,
+        server_restart: 0,
         crystal_kills: {},
         crystal_deaths: {},
         quotes: {},
@@ -68,6 +69,7 @@ function startup() {
             "See your kill/death ratio with -kd username/random!",
             "Quote your friends with -quote username/random!",
             "Use -uptime to check how long the bot has been online!",
+            "Working on something? Check when the server restarts with -restart.",
             "View current player count with -playerlist!",
             "Get bot usage stats with -stats!",
             "Can't remove <Malachite>? You can still use me! Start today by doing -help.",
@@ -110,6 +112,7 @@ function startup() {
 }
 
 startup();
+
 
 
 
