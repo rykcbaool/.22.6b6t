@@ -413,11 +413,23 @@ const public_commands = {
         }
     },
 
+    [`${prefix}restart`]: (user, message, bot, state) => {
+        let counting = false
+        if (state.server_restart !== 0) {
+            bot.chat(`Server will restart in approximately: ${state.server_restart} seconds.`)
+            counting = true
+        } else if (counting && state.server_restart === 0) {
+            // bot.chat("Countdown is 0, but server didn't restart, did it?")
+        } else {
+            bot.chat("Server didn't announce when server restarts.")
+        }
+    },
+
     [`${prefix}stats`]: (user, message, bot, state) => {
         bot.chat(`Bot uses: ${state.bot_uses}, Bot tips sent: ${state.bot_tips_sent}.`)
     },
 
-    [`${prefix}ds`]: (user, message, bot, state) => {
+    [`${prefix}discord`]: (user, message, bot, state) => {
         bot.chat(`Official discord server of .22 - https://discord.gg/mjrDsGCV7F`)
     }    
 }
@@ -499,8 +511,7 @@ const admin_commands = {
             bot.chat("Removing keep_alive listener!, timing out in 30 seconds as of now.")
             bot._client.removeAllListeners('keep_alive');    
         }
-        
-    }    
+    }, 
 }
 
 module.exports = { public_commands, admin_commands };
