@@ -57,19 +57,37 @@ function startup() {
         spam_messages: [
             "Want to check who has got more kills? Try -topkills!",
             "Curious about the bot's health? Use -health!",
-            "Feeling lucky? Roll a dice with -roll!",
-            "Can't decide? Use -choose option1, option2...",
+            "Feeling lucky? Roll a dice with -dice!",
+            "Can't decide? Use -choose option1 option2 ...",
             "Flip a coin with -flip!",
             "Need a quick ping test? Try -ping!",
             "Ask the magic 8-ball your question with -8ball!",
-            "Curious about boob sizes? Try -boobs username!",
-            "Want your own command? Suggest it at discord.gg/mjrDsGCV7F!"
-        ],
-        blacklisted_messages: [
-            '---------------------------',
-            'players sleeping',
-            'You can vote! Type /vote to get more homes, lower cooldowns & white username color!',
-            'Remember to /vote'
+            "Curious about boob sizes? Try -boobs username/random!",
+            "Want your own command? Run -discord for official discord server!",
+            "Check server TPS using -tps!",
+            "See your kill/death ratio with -kd username/random!",
+            "Quote your friends with -quote username/random!",
+            "Use -uptime to check how long the bot has been online!",
+            "View current player count with -playerlist!",
+            "Get bot usage stats with -stats!",
+            "Wondering who's gay? Try -gay username/random!",
+            "Think someone’s dumb? Try -iq username/random!",
+            "Curious about dick size? Use -pp username/random!",
+            "Wanna know if they're trans? Use -trans username/random!",
+            "Use -femboy username/random to find out who's the real femboy.",
+            "Find out who the furry is with -furry username/random!",
+            "Use -indian username/random to calculate their curry level!",
+            "Use -lesbian username/random and get surprised.",
+            "Think someone's slow? Try -retard username/random!",
+            "Check if someone's Turkish with -turkish username/random!",
+            "Use -rape username/random if you're feeling unhinged.",
+            "Dox your friends with -dox username/random!",
+            "Tell someone to off themselves with -kys username/random!",
+            "Find out who’s Jewish with -jew username/random!",
+            "See who’s the biggest nigger with -nigger username/random!",
+            "Use -quote username/random to get a random quote from someone.",
+            "Use -kd username/random to check a player's KD!",
+            "Use -pp username/random to see who’s packing or lacking."
         ],
         responses: {
             "You are not allowed to teleport while in the 5000x5000 overworld spawn area!": () => {
@@ -91,4 +109,5 @@ function startup() {
 }
 
 startup();
+
 
