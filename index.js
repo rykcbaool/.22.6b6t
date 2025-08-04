@@ -70,6 +70,7 @@ function startup() {
             "Use -uptime to check how long the bot has been online!",
             "View current player count with -playerlist!",
             "Get bot usage stats with -stats!",
+            "Can't remove <Malachite>? You can still use me! Start today by doing -help.",
             "Wondering who's gay? Try -gay username/random!",
             "Think someone’s dumb? Try -iq username/random!",
             "Curious about dick size? Use -pp username/random!",
@@ -109,5 +110,6 @@ function startup() {
 }
 
 startup();
+
 
 
