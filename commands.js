@@ -1,7 +1,6 @@
+// commands.js
 //const { bot, whitelisted_users, state.random_element, get_random_ip, get_uptime, crystal_kills, crystalled, deaths, global_deaths, crystal_deaths, quotes, bot_uses, bot_tips_sent, whitelist, sizes, answers, spawnedIn, welcomer } = require('./util');
 const prefix = "-";
-
-
 
 const public_commands = {
     [`${prefix}help`]: (user, message, bot, state) => {
@@ -426,8 +425,56 @@ const public_commands = {
     },
 
     [`${prefix}stats`]: (user, message, bot, state) => {
-        bot.chat(`Bot uses: ${state.bot_uses}, Bot tips sent: ${state.bot_tips_sent}.`)
+        bot.chat(`Bot uses: ${state.bot_uses}, Bot tips sent: ${state.bot_tips_sent}, Ads seen: ${state.ads_seen}, word "dupe" mentioned: ${state.dupe_mentioned}`)
     },
+
+    [`${prefix}weather`]: (user, message, bot, state) => {
+        let rainState = bot.rainState > 0 ? 'Raining' : 'Clear skies';
+        let thunderState = bot.thunderState > 0 ? 'Thunderstorm' : 'No thunder';
+
+        bot.chat(`Weather: ${rainState} | ${thunderState}`);
+    },
+
+    [`${prefix}time`]: (user, message, bot, state) => {
+        const timeOfDay = bot.time.timeOfDay;
+        const day = bot.time.day;
+
+        const timeState = timeOfDay === 0 ? 'Sunrise' :
+                        timeOfDay < 6000 ? 'Morning' :
+                        timeOfDay === 6000 ? 'Noon' :
+                        timeOfDay < 12000 ? 'Afternoon' :
+                        timeOfDay === 12000 ? 'Sunset' :
+                        timeOfDay < 18000 ? 'Evening' :
+                        timeOfDay === 18000 ? 'Midnight' :
+                        'Night';
+
+        const moonPhases = [
+        'Full Moon', 'Waning Gibbous', 'Third Quarter',
+        'Waning Crescent', 'New Moon', 'Waxing Crescent',
+        'First Quarter', 'Waxing Gibbous'
+        ];
+        const moonPhaseIndex = bot.time.moonPhase;
+        const moonPhase = moonPhases[moonPhaseIndex] || 'Unknown';
+
+        bot.chat(`Day ${day} | Time: ${timeState} (${Math.floor(timeOfDay)}/24000 ticks) | Moon Phase: ${moonPhase}`);
+    },
+
+    // not in use. maybe later
+
+    /*[`${prefix}poll`]: (user, message, bot, state) => {
+        let args = message.split(`${prefix}poll `)[1]
+
+        if (args && args.length > 0) {
+            let poll_objects = args.includes(', ') ? args.split(', ') : args.split(' ');
+
+            const topic = args[0]
+            const option_1 = args[1]
+            const option_2 = args[2]
+            const time_length = args[3]
+
+            bot.chat(`[POLL] Poll has started!:`)
+        }
+    },*/
 
     [`${prefix}discord`]: (user, message, bot, state) => {
         bot.chat(`Official discord server of .22 - https://discord.gg/mjrDsGCV7F`)
