@@ -177,7 +177,7 @@ module.exports = function(bot, state) {
         if (state.restart) {
             state.loggedIn = false;
             state.spawnedIn = 0;
-            setTimeout(startup, 5000);
+            setTimeout(global.startup, 5000);
         }
     });
 
@@ -185,7 +185,8 @@ module.exports = function(bot, state) {
         console.error('[Bot Error]', err);
         if (err.code === 'ECONNREFUSED' || err.message.includes('timed out')) {
             console.log('Attempting to reconnect...');
-            setTimeout(startup, 5000);
+            setTimeout(global.startup, 5000);
         }
     });
 };
+
