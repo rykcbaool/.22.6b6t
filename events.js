@@ -1,7 +1,9 @@
 // events.js
 module.exports = function(bot, state) {
     const {
-        startup,
+        server_restart,
+        ads_seen,
+        dupe_mentioned,
         random_element,
         spam_messages,
         blacklisted_messages,
@@ -130,6 +132,14 @@ module.exports = function(bot, state) {
             }
         }
 
+        if (message.includes('dsc.gg') || message.includes('discord.gg')) {
+            state.ads_seen++;
+        }
+
+        if (message.includes('dupe') && !(message.includes('dsc.gg') || message.includes('discord.gg')) ) {
+            state.dupe_mentioned++;
+        }        
+        
         if (message.includes("Server restarts in") && !message.includes('»')) {
             // Server restarts in 25200s
             if (state.server_restart === 0) {
@@ -140,7 +150,7 @@ module.exports = function(bot, state) {
                 }, 1000)
             }
         }
-        
+
         if (message.includes("died") && !message.includes('»')) {
             state.global_deaths++;
         }
@@ -188,7 +198,7 @@ module.exports = function(bot, state) {
         if (state.restart) {
             state.loggedIn = false;
             state.spawnedIn = 0;
-            setTimeout(global.startup, 5000);
+            setTimeout(() => global.startup(), 5000);
         }
     });
 
@@ -196,9 +206,7 @@ module.exports = function(bot, state) {
         console.error('[Bot Error]', err);
         if (err.code === 'ECONNREFUSED' || err.message.includes('timed out')) {
             console.log('Attempting to reconnect...');
-            setTimeout(global.startup, 5000);
+            setTimeout(() => global.startup(), 5000);
         }
     });
 };
-
-
