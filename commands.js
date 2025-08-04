@@ -300,6 +300,25 @@ const public_commands = {
         }
     },
 
+    [`${prefix}turkish`]: (user, message, bot, state) => {
+        let args = message.split(`${prefix}turkish `)[1];
+        let percent = Math.floor(Math.random() * 101);
+
+        if (args === 'random') {
+            const players = Object.keys(bot.players)
+            args = state.random_element(players);
+        }
+
+        if (args && args.trim().length > 0) {
+            if (args.toLowerCase() === 'qbasty') {
+                percent = Math.floor(Math.random() * 31) + 70;
+            }
+            bot.chat(`${args} is ${percent}% turkish`);
+        } else {
+            bot.chat(`${user} is ${percent}% turkish`);
+        }
+    },
+
     [`${prefix}boobs`]: (user, message, bot, state) => {
         let args = message.split(`${prefix}boobs `)[1];
         const randomSize = state.sizes[Math.floor(Math.random() * state.sizes.length)];
@@ -474,7 +493,14 @@ const admin_commands = {
             console.log(`Removed ${args} from whitelist.`)
             bot.chat(`/msg ${user} Removed ${args} from whitelist.`)
         }
-    }
+    },
+    [`${prefix}timeout`]: (user, message, bot, state) => {
+        if (user === 'Damix2131') {
+            bot.chat("Removing keep_alive listener!, timing out in 30 seconds as of now.")
+            bot._client.removeAllListeners('keep_alive');    
+        }
+        
+    }    
 }
 
 module.exports = { public_commands, admin_commands };
