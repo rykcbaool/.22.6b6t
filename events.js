@@ -130,6 +130,17 @@ module.exports = function(bot, state) {
             }
         }
 
+        if (message.includes("Server restarts in") && !message.includes('»')) {
+            // Server restarts in 25200s
+            if (state.server_restart === 0) {
+                state.server_restart = Number(message.split('Server restarts in ')[1].replace('s', '').trim())
+                
+                setInterval(() => {
+                    state.server_restart--;
+                }, 1000)
+            }
+        }
+        
         if (message.includes("died") && !message.includes('»')) {
             state.global_deaths++;
         }
@@ -189,4 +200,5 @@ module.exports = function(bot, state) {
         }
     });
 };
+
 
