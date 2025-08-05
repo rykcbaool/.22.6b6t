@@ -1,6 +1,8 @@
 // commands.js
 //const { bot, whitelisted_users, state.random_element, get_random_ip, get_uptime, crystal_kills, crystalled, deaths, global_deaths, crystal_deaths, quotes, bot_uses, bot_tips_sent, whitelist, sizes, answers, spawnedIn, welcomer } = require('./util');
 const prefix = "*";
+const blacklist = require('./blacklist');
+
 
 const public_commands = {
     [`${prefix}help`]: (user, message, bot, state) => {
@@ -523,6 +525,26 @@ const admin_commands = {
         }
     },
 
+    [`${prefix}blacklist`]: (user, message, bot, state) => {
+        const isAdmin = state.whitelisted_users(user);
+        if (!isAdmin) return;
+        const target = message.split(`${prefix}blacklist `)[1];
+        if (!target) return bot.chat(`/msg ${user} Usage: ${prefix}blacklist <username>`);
+
+        blacklist.addToBlacklist(target);
+        bot.chat(`/msg ${user} Blacklisted ${target}.`);
+    },
+
+    [`${prefix}unblacklist`]: (user, message, bot, state) => {
+        const isAdmin = state.whitelisted_users(user);
+        if (!isAdmin) return;
+        const target = message.split(`${prefix}unblacklist `)[1];
+        if (!target) return bot.chat(`/msg ${user} Usage: ${prefix}unblacklist <username>`);
+
+        blacklist.removeFromBlacklist(target);
+        bot.chat(`/msg ${user} Unblacklisted ${target}.`);
+    },
+
     [`${prefix}say`]: (user, message, bot, state) => {
         const message_to_run = message.split(`${prefix}say `)[1];
         bot.chat(` ${message_to_run}`) // space at start doesn't let any commands to run
@@ -562,5 +584,6 @@ const admin_commands = {
 }
 
 module.exports = { public_commands, admin_commands };
+
 
 
