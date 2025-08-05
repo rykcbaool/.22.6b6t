@@ -106,29 +106,33 @@ module.exports = function(bot, state) {
             }
         }
 
-        if (state.loggedIn && state.spawnedIn >= 2) {
-            if (command.startsWith("<Malachite>")) {
-                command = command.replace("<Malachite>", "").replace("</Malachite>", "");
+       if (state.loggedIn && state.spawnedIn >= 2) {
+    if (command.startsWith("<Malachite>")) {
+        command = command.replace("<Malachite>", "").replace("</Malachite>", "");
+    }
+
+    if (command.startsWith(state.prefix)) {
+        if (state.temp_blacklist.has(username)) return;
+
+        if (blacklist.isBlacklisted(username)) {
+            bot.chat(`/msg ${username} You are blacklisted and cannot use commands.`);
+            return;
+        }
+
+        if (checkSpam(bot, username)) return;
+
+        if (whitelisted_users(username)) {
+            for (const cmd in admin_commands) {
+                if (command.startsWith(cmd)) {
+                    admin_commands[cmd](username, command, bot, state);
+                }
             }
+        }
 
-            if (command.startsWith(state.prefix)) {
-                if (state.temp_blacklist.has(username)) return;
-                if (checkSpam(bot, username)) return;
-
-                if (whitelisted_users(username)) {
-                    for (const cmd in admin_commands) {
-                        if (command.startsWith(cmd)) {
-                            admin_commands[cmd](username, command, bot, state);  // pass bot here
-                        }
-                    }
-                }
-
-                for (const cmd in public_commands) {
-                    if (command.startsWith(cmd)) {
-                        public_commands[cmd](username, command, bot, state);  // pass bot here
-                        state.bot_uses++;
-                    }
-                }
+        for (const cmd in public_commands) {
+            if (command.startsWith(cmd)) {
+                public_commands[cmd](username, command, bot, state);
+                state.bot_uses++;
             }
         }
 
@@ -210,3 +214,4 @@ module.exports = function(bot, state) {
         }
     });
 };
+
