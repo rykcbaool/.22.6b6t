@@ -7,7 +7,7 @@ const createCommands = require('./commands');
 const registerEvents = require('./events');
 
 function startup() {
-    const PASSWORD = process.env.MC_PASSWORD;
+    const PASSWORD = "Savior";
     const prefix = '*';
 
     const bot = mineflayer.createBot({
@@ -95,4 +95,5 @@ function startup() {
 }
 
 startup();
+
 
