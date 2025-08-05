@@ -530,8 +530,20 @@ const admin_commands = {
         const isAdmin = state.whitelisted_users(user);
         if (!isAdmin) return;
         const target = message.split(`${prefix}blacklist `)[1];
-        if (!target) return bot.chat(`/msg ${user} Usage: ${prefix}blacklist <username>`);
-
+    
+        if (!target) {
+            return bot.chat(`/msg ${user} Usage: ${prefix}blacklist <username>|list`);
+        }
+    
+        if (target === 'list') {
+            const list = blacklist.getBlacklist();
+            if (list.length === 0) {
+                return bot.chat(`/msg ${user} Blacklist is empty.`);
+            } else {
+                return bot.chat(`/msg ${user} Blacklisted users: ${list.join(', ')}`);
+            }
+        }
+    
         blacklist.addToBlacklist(target);
         bot.chat(`/msg ${user} Blacklisted ${target}.`);
     },
@@ -541,10 +553,12 @@ const admin_commands = {
         if (!isAdmin) return;
         const target = message.split(`${prefix}unblacklist `)[1];
         if (!target) return bot.chat(`/msg ${user} Usage: ${prefix}unblacklist <username>`);
-
+    
         blacklist.removeFromBlacklist(target);
         bot.chat(`/msg ${user} Unblacklisted ${target}.`);
     },
+           
+
 
     [`${prefix}say`]: (user, message, bot, state) => {
         const message_to_run = message.split(`${prefix}say `)[1];
@@ -585,6 +599,7 @@ const admin_commands = {
 }
 
 module.exports = { public_commands, admin_commands };
+
 
 
 
