@@ -5,6 +5,7 @@ const blacklist = require('./blacklist');
 
 
 const public_commands = {
+    
     [`${prefix}help`]: (user, message, bot, state) => {
         const isAdmin = state.whitelisted_users(user);
         let args = message.trim().split(/\s+/);
@@ -584,6 +585,7 @@ const admin_commands = {
 }
 
 module.exports = { public_commands, admin_commands };
+
 
 
 
