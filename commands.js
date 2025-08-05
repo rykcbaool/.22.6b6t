@@ -533,15 +533,15 @@ const admin_commands = {
        bot.chat(`Scanner is now ${state.welcomer ? "ON" : "OFF"}!`);
     },
 
-    [`${prefix}tempwl`]: (user, message, bot, state) => {
-        let args = message.split(`${prefix}tempwl `)[1];
+    [`${prefix}authadd`]: (user, message, bot, state) => {
+        let args = message.split(`${prefix}authadd `)[1];
         state.whitelist.push(String(args))
         console.log(`Whitelisted ${args}.`)
         bot.chat(`/msg ${user} Whitelisted ${args}.`)
     },
 
-    [`${prefix}remwl`]: (user, message, bot, state) => {
-        let args = message.split(`${prefix}remwl `)[1];
+    [`${prefix}authdel`]: (user, message, bot, state) => {
+        let args = message.split(`${prefix}authdel `)[1];
         if (args.toLowerCase() !== 'damix2131') {
             if (!state.whitelist.includes(args)) {
                 bot.whisper(user, `${args} is not in the whitelist.`);
@@ -562,4 +562,5 @@ const admin_commands = {
 }
 
 module.exports = { public_commands, admin_commands };
+
 
