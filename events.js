@@ -191,7 +191,7 @@ module.exports = function(bot, state) {
             console.log(`Player ${player} currently joined.`);
             bot.chat(`/whisper ${player} Welcome to 6b6t.org ${player}!`);
         }
-    });
+    };
 
     bot.on('kicked', (reason) => {
         console.log('[Kicked]', reason);
@@ -214,4 +214,5 @@ module.exports = function(bot, state) {
         }
     });
 };
+
 
