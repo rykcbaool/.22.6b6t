@@ -1,6 +1,6 @@
 // commands.js
 //const { bot, whitelisted_users, state.random_element, get_random_ip, get_uptime, crystal_kills, crystalled, deaths, global_deaths, crystal_deaths, quotes, bot_uses, bot_tips_sent, whitelist, sizes, answers, spawnedIn, welcomer } = require('./util');
-const prefix = "-";
+const prefix = "*";
 
 const public_commands = {
     [`${prefix}help`]: (user, message, bot, state) => {
@@ -562,3 +562,4 @@ const admin_commands = {
 }
 
 module.exports = { public_commands, admin_commands };
+
